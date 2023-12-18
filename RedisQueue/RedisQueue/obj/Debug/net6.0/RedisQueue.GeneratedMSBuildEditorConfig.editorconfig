@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = RedisQueue
-build_property.ProjectDir = e:\100. KITE\RedisNote\RedisQueue\RedisQueue\
+build_property.ProjectDir = E:\01. kite\002. SideProject\RedisNote\RedisQueue\RedisQueue\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

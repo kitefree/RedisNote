@@ -1,6 +1,5 @@
 ---
-
-title: Redis筆記
+title: Redis學習筆記
 
 date: 2023-10-16 11:01
 
@@ -8,19 +7,22 @@ categories: ['後端']
 
 tags: ['Redis','高可用']
 
+
 ---
 
 ## 1. Redis簡介
 
-Remote dictionary server
+- Remote dictionary server
 
-可以用於數據庫、緩存、消息隊列等各種場景
+- 可以用於數據庫、緩存、消息隊列等各種場景
 
-最熱門NoSQL數據庫之一
+- 最熱門NoSQL數據庫之一
 
-基於內存數據庫(記憶體效能>IO效能，也就是Redis>MySQL效能)
+- 基於內存數據庫(記憶體效能>IO效能，也就是Redis>MySQL效能)
 
-GitHub、Twitter、Stackoverflow、百度都在使用
+- GitHub、Twitter、Stackoverflow、百度都在使用
+
+<!--more-->
 
 ## 2. Redis特點
 
@@ -238,6 +240,7 @@ OK
 127.0.0.1:6379> get name
 "\xe6\x82\xa0\xe9\xa2\xa8"
 ```
+
 #### 5.3.9. redis-cli --raw  正常顯示中文方法
 
 ```bash
@@ -897,6 +900,7 @@ OK
 ![image-20231214142550274](https://i.imgur.com/kzsdXDW.png)
 
 ### 13.1. 常用指令
+
 #### 13.1.1. SETBIT
 
 ![image-20231214142638511](https://i.imgur.com/dp0k5Nw.png)
@@ -1238,7 +1242,60 @@ docker run -it --name redis-slave02 -p 6381:6379 redis redis-server --slaveof 17
 
 ![image-20231216103824221](https://i.imgur.com/zXP20s8.png)
 
-## 18. 模擬排隊程式
+## 18. 哨兵模式
+
+如果某個節點發生問題，那麼哨兵就會通過發佈訂閱模式來通知其它節點。當主節點不能正常工作時，哨兵會開始一個自動故障轉移的操作，它會將一個從節點升級為新的主節點，然後再將其他從節點指向新的主節點。
+
+![圖片](https://i.imgur.com/XHcuLXb.png)
+
+### 18.1. 首先，準備四個docker(1主、2從、1哨)
+
+```bash
+docker run -it --name redis-master -p 6379:6379 redis redis-server --slaveof 172.17.0.2 6379
+docker run -it --name redis-slave01 -p 6380:6379 redis redis-server --slaveof 172.17.0.2 6379
+docker run -it --name redis-slave02 -p 6381:6379 redis redis-server --slaveof 172.17.0.2 6379
+docker run -it --name redis-sentinel -p 6382:6379 redis
+```
+
+結果如下：
+
+![redis002](https://i.imgur.com/0xUrsaR.png)
+
+### 18.2. 建立`sentinel.conf`檔
+
+進入到`redis-sentinel`容器中，建立`sentinel.conf`檔，檔案內容如下：
+
+```bash
+sentinel monitor mymaster 172.17.0.2 6379 1
+```
+
+參數說明
+
+- `mymaster` 自取名稱，任意填寫
+
+- `172.17.0.2` 填master ip
+
+- `6379` master port
+
+- `1` 投票人數，這邊只有一個哨兵所以就填1即可。
+
+### 18.3. 啟動哨兵模式
+
+在`redis-sentinel`容器中，執行指令`redis-sentinel sentinel.conf`，成功啟動預期如下圖：
+
+![redis001](https://i.imgur.com/B7boGE0.png)
+
+### 18.4. 模擬master中斷
+
+![redis003](https://i.imgur.com/helyHzC.png)
+
+### 18.5. 觀查哨兵自動轉換
+
+哨兵在自動切換需要一些時間，等待一下…就會看到訊息開始在運作，透過`info replication`查看，可以觀查到原本的`slave01`升級變為`master`，實驗結束，結果如下圖：
+
+![redis004](https://i.imgur.com/52ZiVNr.png)
+
+## 19. 模擬排隊程式
 
 ```c#
 // See https://aka.ms/new-console-template for more information
@@ -1310,15 +1367,15 @@ static async Task ProcessQueue(ConnectionMultiplexer redis)
 }
 ```
 
-### 18.1. 執行過程
+### 19.1. 執行過程
 
 ![image-20231211164712006](https://i.imgur.com/Qzk5Pxh.png)
 
-### 18.2. 觀查redis狀況
+### 19.2. 觀查redis狀況
 
 ![image-20231211164740246](https://i.imgur.com/7ra7MSN.png)
 
-## 19. 參考連結
+## 20. 參考連結
 
 - [GUI工具：GitHub:Another Redis Desktop Manager](https://github.com/qishibo/AnotherRedisDesktopManager/)
 - [【GeekHour】一小时Redis教程](https://www.bilibili.com/video/BV1Jj411D7oG/)

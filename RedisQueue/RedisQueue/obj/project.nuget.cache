@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "YOwiJOC2blFPGLBhX9z6aFoEVK6bfjF1g3/favTKyQ6fbxjLL+48ASUP8g2DPmdhIWbhmxZ0oHdIz1ugqP5E6w==",
+  "dgSpecHash": "VMT+MYLZMQ8Nr8rDdouzk4EyHCWslANglkvocr4EMc6ryrw9e5j6gw8QRjkJBQEkQN+e3YiUdFg6QvIr3KDLpg==",
   "success": true,
-  "projectFilePath": "E:\\100. KITE\\RedisConsole\\RedisQueue\\RedisQueue\\RedisQueue.csproj",
+  "projectFilePath": "E:\\01. kite\\002. SideProject\\RedisNote\\RedisQueue\\RedisQueue\\RedisQueue.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\RESH\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
-    "C:\\Users\\RESH\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
-    "C:\\Users\\RESH\\.nuget\\packages\\stackexchange.redis\\2.7.4\\stackexchange.redis.2.7.4.nupkg.sha512",
-    "C:\\Users\\RESH\\.nuget\\packages\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512"
+    "C:\\Users\\kite\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\kite\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+    "C:\\Users\\kite\\.nuget\\packages\\stackexchange.redis\\2.7.4\\stackexchange.redis.2.7.4.nupkg.sha512",
+    "C:\\Users\\kite\\.nuget\\packages\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512"
   ],
   "logs": []
 }
